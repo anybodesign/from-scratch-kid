@@ -1,0 +1,17 @@
+/*!
+Theme Name: Site Title
+Author: Thomas Villain
+Author URI: https://anybodesign.com/
+Description: A WordPress Theme 2023.
+Version: 1.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: slug
+Tags: one-column, two-columns, right-sidebar, custom-menu, editor-style, featured-images, post-formats, sticky-post, threaded-comments, translation-ready
+
+Template: from-scratch
+
+This theme, like WordPress, is licensed under the GPL.
+Use it to make something cool, have fun, and share what you've learned with others.
+*/:root{--primary_color:#23252b;--secondary_color:#606060;--accent_color:#CEFF00;--bg_color:#f0f0f0;--page_color:#ffffff;--text_color:#23252b;--btn_text:#23252b;--btn_text_hover:#fff;--header_color:transparent;--footer_color:transparent}:root .high-contrast{--primary_color:#222;--secondary_color:#222;--accent_color:#222;--bg_color:#f0f0f0;--page_color:#f0f0f0;--text_color:#222;--btn_text:#f0f0f0;--btn_text_hover:#f0f0f0;--header_color:#f0f0f0;--footer_color:#f0f0f0}:root{--font_stack:Helvetica,Arial,sans-serif;--font_title:"Title",var(--font_stack);--font_regular:"Regular",var(--font_stack);--font_italic:"Italic",var(--font_stack);--font_bold:"Bold",var(--font_stack);--font_bolditalic:"BoldItalic",var(--font_stack);--font_mono:"Andale Mono","DejaVu Sans Mono",Courier,monospace}
+/*# sourceMappingURL=style.css.map */
