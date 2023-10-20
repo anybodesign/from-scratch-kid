@@ -1,0 +1,11 @@
+// Footer
+
+.footer-menu li a,
+.widgets-area p a {
+	
+	@include link-style-child();
+	
+	.white-text & {
+		@include link-style(dark);
+	}
+}

@@ -1,0 +1,53 @@
+// Links
+
+@mixin link-style-child($bg: dark) {
+	
+	$color: var(--primary_color);
+	$color2: var(--accent_color);
+	$text: var(--text_color);
+	$text2: var(--text_color);
+	
+	@if $bg == white {
+		$color: #fff;
+		$color2: var(--accent_color);
+		$text: #fff;
+		$text2: var(--text_color);
+	}
+	
+	text-decoration: none;
+	padding-bottom: .15rem;
+	background-image:
+		linear-gradient(
+			transparent 0,
+			transparent 0.9rem,
+			$color 0.9rem,
+			$color 1rem
+		);
+	background-size: 100% 1.1rem;
+	background-position: 0 bottom;
+	background-repeat: no-repeat;
+	transition: .2s ease-in-out;
+	
+	&:hover {
+		color: $text2;
+		background-image:
+		linear-gradient(
+			transparent 0,
+			transparent 0.9rem,
+			$color2 0.9rem,
+			$color2 1rem
+		);
+		background-size: 100% 150%;
+	}
+	&:focus {
+		background-color: var(--text_color);
+		color: #fff;
+		background-image: none;
+	}
+	&:active {
+		color: var(--secondary_color);
+	}
+	&:focus:visited {
+		color: #fff;
+	}	
+}
