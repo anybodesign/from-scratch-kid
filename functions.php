@@ -29,6 +29,16 @@ load_theme_textdomain( 'slug', FSCHILD_THEME_DIR . '/languages' );
 
 function fschild_setup() {
 	
+	// Blocks styles
+	
+	register_block_style(
+	  'core/image',
+		array(
+		  'name'	=> 'noborder',
+		  'label'	=> esc_attr__( 'No border', 'slug' ),
+		)
+	);
+	
 	// global $primary;
 	// global $secondary;
 	// global $accent;
