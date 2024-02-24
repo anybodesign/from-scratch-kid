@@ -1,5 +1,6 @@
 <?php if ( !defined('ABSPATH') ) die();
 
+define( 'FSCHILD_THEME_VERSION', '1.0' );
 define( 'FSCHILD_THEME_DIR', get_stylesheet_directory() );
 define( 'FSCHILD_THEME_URL', get_stylesheet_directory_uri() );
 
@@ -9,23 +10,38 @@ define( 'FSCHILD_THEME_URL', get_stylesheet_directory_uri() );
 // $bg = get_theme_mod('bg_color', '#f0f0f0');
 // $text_color = get_theme_mod('text_color', '#182C34');
 
+
 // I18n
 
-load_theme_textdomain( 'slug', FSCHILD_THEME_DIR . '/languages' );
+load_theme_textdomain( 'the_slug', FSCHILD_THEME_DIR . '/languages' );
 
 
 // Gutenberg editor styles
 
-// function fschild_block_editor_styles() {
-//     wp_enqueue_style( 
-//     	'fschild_block_editor_styles',
-//     	FSCHILD_THEME_URL .'/css/block-editor-child.css', 
-//     	false, 
-//     	false, 
-//     	'screen'
-//     );
-// }
-// add_action( 'enqueue_block_editor_assets', 'fschild_block_editor_styles' );
+function fschild_block_editor_styles() {
+    wp_enqueue_style( 
+    	'fschild_block_editor_styles',
+    	FSCHILD_THEME_URL .'/css/block-editor-child.css', 
+    	array('fs_block_editor_styles'), 
+    	FSCHILD_THEME_VERSION, 
+    	'screen'
+    );
+}
+add_action( 'enqueue_block_editor_assets', 'fschild_block_editor_styles' );
+
+
+// Gutenberg allowed blocks
+
+function fschild_allowed_blocks() {
+	wp_enqueue_script(
+		'byebyeblocks',
+		FSCHILD_THEME_URL . '/js/byebyeblocks.js',
+		array( 'wp-blocks', 'wp-dom-ready', 'wp-edit-post' ), 
+		FS_THEME_VERSION
+	);
+}
+add_action( 'enqueue_block_editor_assets', 'fschild_allowed_blocks' );
+
 
 function fschild_setup() {
 	
@@ -35,7 +51,14 @@ function fschild_setup() {
 	  'core/image',
 		array(
 		  'name'	=> 'noborder',
-		  'label'	=> esc_attr__( 'No border', 'slug' ),
+		  'label'	=> esc_attr__( 'No border', 'the_slug' ),
+		)
+	);
+	register_block_style(
+	  'core/image',
+		array(
+		  'name'	=> 'circle',
+		  'label'	=> esc_attr__( 'Circle', 'the_slug' ),
 		)
 	);
 	
@@ -47,22 +70,22 @@ function fschild_setup() {
 	// 
 	// add_theme_support( 'editor-font-sizes', array(
     // 	array(
-    //     	'name' => __( 'Small', 'slug' ),
+    //     	'name' => __( 'Small', 'the_slug' ),
     //     	'size' => 14,
     //     	'slug' => 'small'
     // 	),
 	// 	array(
-    //     	'name' => __( 'Regular', 'slug' ),
+    //     	'name' => __( 'Regular', 'the_slug' ),
     //     	'size' => 16,
     //     	'slug' => 'regular'
     // 	),
 	// 	array(
-    //     	'name' => __( 'Medium', 'slug' ),
+    //     	'name' => __( 'Medium', 'the_slug' ),
     //     	'size' => 18,
     //     	'slug' => 'medium'
     // 	),
     // 	array(
-    //     	'name' => __( 'Large', 'slug' ),
+    //     	'name' => __( 'Large', 'the_slug' ),
     //     	'size' => 22,
     //     'slug' => 'large'
     // 	),
@@ -73,25 +96,25 @@ function fschild_setup() {
 	// 
 	// add_theme_support( 'editor-color-palette', array(
 	//     
-	//     // Customizer colors
+	//  // Customizer colors
 	//     
 	// 	array(
-	//         'name' => esc_html__( 'Primary color', 'slug' ),
+	//         'name' => esc_html__( 'Primary color', 'the_slug' ),
 	//         'slug' => 'primary',
 	//         'color' => $primary,
 	//     ),
 	// 	array(
-	//         'name' => esc_html__( 'Background color', 'slug' ),
+	//         'name' => esc_html__( 'Background color', 'the_slug' ),
 	//         'slug' => 'bg',
 	//         'color' => $bg,
 	//     ),
 	// 	array(
-	//         'name' => esc_html__( 'White', 'slug' ),
+	//         'name' => esc_html__( 'White', 'the_slug' ),
 	//         'slug' => 'white',
 	//         'color' => '#FFFFFF',
 	//     ),
 	// 	array(
-	//         'name' => esc_html__( 'Text color', 'slug' ),
+	//         'name' => esc_html__( 'Text color', 'the_slug' ),
 	//         'slug' => 'text',
 	//         'color' => $text_color,
 	//     ),
@@ -99,20 +122,22 @@ function fschild_setup() {
 	// ));
 	// 
 	// add_theme_support( 'disable-custom-colors' );
-	
+	// add_theme_support( 'editor-gradient-presets', [] );
+	// add_theme_support( 'disable-custom-gradients', true );
+	//
 	// add_theme_support( 'editor-gradient-presets', array(
     //     array(
-    //         'name'     => esc_attr__( 'Light blue to white', 'slug' ),
+    //         'name'     => esc_attr__( 'Light blue to white', 'the_slug' ),
     //         'gradient' => 'linear-gradient(180deg, #E3F2F4 50%, #FFFFFF 100%)',
     //         'slug'     => 'light-blue'
     //     ),
     //     array(
-    //         'name'     => esc_attr__( 'Dark blue to black', 'slug' ),
+    //         'name'     => esc_attr__( 'Dark blue to black', 'the_slug' ),
     //         'gradient' => 'linear-gradient(180deg, #264652 50%, #182C34 100%)',
     //         'slug'     => 'dark-blue',
     //     ),
     //     array(
-    //         'name'     => esc_attr__( 'White and light blue', 'slug' ),
+    //         'name'     => esc_attr__( 'White and light blue', 'the_slug' ),
     //         'gradient' => 'linear-gradient(90deg, #FFFFFF 0%, #FFFFFF 50%, #E3F2F4 50%, #E3F2F4 100%)',
     //         'slug'     => 'white-blue',
     //     ),
@@ -155,13 +180,10 @@ add_action( 'wp_enqueue_scripts', 'fschild_scripts_load' );
 //require FSCHILD_THEME_DIR . '/inc/customizer.php';
 
 
-// Remove image sizes
+// CPT
 
-function fs_remove_image_sizes() {
-	remove_image_size( 'video-md' );
-	remove_image_size( 'video-hd' );
-}
-add_action('init', 'fs_remove_image_sizes');
+//include_once FSCHILD_THEME_DIR . '/inc/ad-cpt.php';
+
 
 
 // ------------------------
@@ -208,8 +230,8 @@ if( class_exists('acf') ) {
 	// 	function fs_acf_add_options_page() {
 	// 		
 	// 		acf_add_options_page(array(
-	// 			'page_title'	=> esc_html__( 'Site Options', 'slug' ),
-	// 			'menu_title'	=> esc_html__( 'Site Options', 'slug' ),
+	// 			'page_title'	=> esc_html__( 'Site Options', 'the_slug' ),
+	// 			'menu_title'	=> esc_html__( 'Site Options', 'the_slug' ),
 	// 			'menu_slug'		=> 'options-site',
 	// 			'capability'	=> 'edit_posts',
 	// 			'icon_url'		=> 'dashicons-admin-network',
@@ -218,8 +240,8 @@ if( class_exists('acf') ) {
 	// 		));
 	// 		
 	// 		$parent = acf_add_options_page(array(
-	// 			'page_title'	=> esc_html__( 'Site Options', 'slug' ),
-	// 			'menu_title'	=> esc_html__( 'Site Options', 'slug' ),
+	// 			'page_title'	=> esc_html__( 'Site Options', 'the_slug' ),
+	// 			'menu_title'	=> esc_html__( 'Site Options', 'the_slug' ),
 	// 			'menu_slug'		=> 'options-site',
 	// 			'capability'	=> 'edit_posts',
 	// 			'icon_url'		=> 'dashicons-admin-network',
@@ -227,14 +249,14 @@ if( class_exists('acf') ) {
 	// 			'position'		=> 30
 	// 		));
 	// 		acf_add_options_sub_page(array(
-	// 			'page_title' 	=> esc_html__( 'Partners', 'slug'),
-	// 			'menu_title' 	=> esc_html__( 'Partners', 'slug'),
+	// 			'page_title' 	=> esc_html__( 'Partners', 'the_slug'),
+	// 			'menu_title' 	=> esc_html__( 'Partners', 'the_slug'),
 	// 			'parent_slug' 	=> $parent['menu_slug'],
 	// 			'menu_slug'		=> 'options-site-partners'
 	// 		));	
 	// 		acf_add_options_sub_page(array(
-	// 			'page_title' 	=> esc_html__( 'Program', 'slug'),
-	// 			'menu_title' 	=> esc_html__( 'Program', 'slug'),
+	// 			'page_title' 	=> esc_html__( 'Program', 'the_slug'),
+	// 			'menu_title' 	=> esc_html__( 'Program', 'the_slug'),
 	// 			'parent_slug' 	=> $parent['menu_slug'],
 	// 			'menu_slug'		=> 'options-site-program'
 	// 		));
