@@ -44,16 +44,8 @@
 			background-color: var(--accent_color);
 			padding-left: $grid-padding;
 			
-			.high-contrast & {
-				color: #fff;
-			}
-			
 			@include rwd(large) {
 				background-color: transparent;
-				
-				.high-contrast & {
-					color: var(--text_color);
-				}
 			}
 			
 			&::after {
@@ -94,10 +86,6 @@
 					padding-left: .5rem;
 					background-color: var(--accent_color);
 					color: var(--text_color);
-					
-					.high-contrast & {
-						color: #fff;
-					}
 				}
 			}
 		}
