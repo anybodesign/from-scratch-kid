@@ -1,0 +1,51 @@
+// Common
+
+// …
+
+// Reset max-width content
+
+.inner {
+	max-width: $max-width-child;
+}
+hr {
+	.page-content & {
+		@include rwd(large) {
+			max-width: calc(#{$max-width-child} - #{$grid-padding*4});
+		}
+	}
+}
+[class*=acf-block--] {
+	.acf-block-container {
+		&.center-max {
+			max-width: $max-width-child;
+		}
+	}
+}
+
+#comments {
+	& > * {
+		@include center-child();
+	}
+}
+.wp-block-group {
+	&.has-background {
+		& > .wp-block-group__inner-container {
+			@include center();
+		}
+	}
+}
+.page-content {
+	& > * {
+		@include center-child();
+	}
+	& > [class*="wp-block-gallery"],
+	& > [class*="wp-block-cover-image"],
+	& > [class*="wp-block-quote"] {
+		@include center-child();
+	}
+}
+.page-wrap {
+	&.has-sidebar {
+		@include center-child();
+	}
+}
