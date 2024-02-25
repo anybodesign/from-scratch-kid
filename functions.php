@@ -157,8 +157,9 @@ add_action( 'after_setup_theme', 'fschild_setup' );
 
 // Enqueue JS & CSS
 
-function fschild_scripts_load() {
-    if (!is_admin()) {
+
+function fschild_parent_style() {
+	if (!is_admin()) {
 		
 		// Parent's CSS
 		
@@ -172,7 +173,24 @@ function fschild_scripts_load() {
 		
 	}
 }    
-add_action( 'wp_enqueue_scripts', 'fschild_scripts_load' );
+add_action( 'wp_enqueue_scripts', 'fschild_parent_style' );
+
+function fschild_scripts_load() {
+	if (!is_admin()) {
+		
+		// Child CSS 
+		
+		wp_enqueue_style( 
+			'child-style', 
+			FSCHILD_THEME_URL . '/style.css',
+			array('parent-style'),
+			false,
+			'screen'
+		);
+		
+	}
+}    
+add_action( 'wp_enqueue_scripts', 'fschild_scripts_load', PHP_INT_MAX );
 
 
 // Customizer
