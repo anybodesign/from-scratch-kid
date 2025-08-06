@@ -11,11 +11,6 @@ define( 'FSCHILD_THEME_URL', get_stylesheet_directory_uri() );
 // $text_color = get_theme_mod('text_color', '#182C34');
 
 
-// I18n
-
-load_theme_textdomain( 'the_slug', FSCHILD_THEME_DIR . '/languages' );
-
-
 // Gutenberg editor styles
 
 function fschild_block_editor_styles() {
@@ -44,6 +39,12 @@ add_action( 'enqueue_block_editor_assets', 'fschild_allowed_blocks' );
 
 
 function fschild_setup() {
+	
+	// I18n
+	
+	load_theme_textdomain( 'the_slug', FSCHILD_THEME_DIR . '/languages' );
+	
+
 	
 	// Blocks styles
 	
@@ -167,7 +168,7 @@ function fschild_parent_style() {
 			'parent-style', 
 			FS_THEME_URL . '/style.css',
 			array(),
-			false,
+			FS_THEME_VERSION,
 			'screen'
 		);
 		
@@ -178,15 +179,7 @@ add_action( 'wp_enqueue_scripts', 'fschild_parent_style' );
 function fschild_scripts_load() {
 	if (!is_admin()) {
 		
-		// Child CSS 
-		
-		wp_enqueue_style( 
-			'child-style', 
-			FSCHILD_THEME_URL . '/style.css',
-			array('parent-style'),
-			false,
-			'screen'
-		);
+		// Some Stuff
 		
 	}
 }    
