@@ -25,6 +25,7 @@ wp.domReady( function() {
 		'core/list',
 		'core/list-item',
 	    'core/image',
+		'core/details',
 		'core/audio',
 	    'core/quote',
 	    'core/button',
